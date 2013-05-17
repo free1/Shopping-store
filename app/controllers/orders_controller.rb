@@ -1,5 +1,10 @@
 class OrdersController < ApplicationController
 
+	def index
+		@orders = Order.paginate page: params[:page], order: 'created_at',
+			per_page: 5
+	end
+
 	def new
 		@order = Order.new
 		@cart = current_cart
@@ -23,5 +28,17 @@ class OrdersController < ApplicationController
 		end
 	end
 
+	def destroy
+		@order = Order.find(params[:id])
+		@order.destroy
+		redirect_to @order
+	end
+
 end
+
+
+
+
+
+
 
