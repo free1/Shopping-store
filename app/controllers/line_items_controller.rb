@@ -8,11 +8,15 @@ class LineItemsController < ApplicationController
 		@cart = current_cart
 		product = Product.find(params[:product_id])
 		@line_item = @cart.add_product(product.id)
-		if @line_item.save
-			redirect_to store_url
-		else
-			render 'new'
-		end	
+
+		respond_to do |format|
+			if @line_item.save
+				format.html { redirect_to store_url }
+				
+			else
+				format.html { render 'new' }
+			end	
+		end
 	end
 
 end
