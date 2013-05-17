@@ -3,6 +3,7 @@ Depot::Application.routes.draw do
 
   resources :carts
 
+  resources :orders
 
   root to: 'store#index', as: 'store'
 
