@@ -1,6 +1,12 @@
 Depot::Application.routes.draw do
 
+  match '/admin', to: 'admin#index'
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+
   resources :users
+
+  resources :sessions, only: [:new, :create, :destroy]
 
   resources :line_items
 
@@ -9,9 +15,7 @@ Depot::Application.routes.draw do
   resources :orders
 
   root to: 'store#index', as: 'store'
-
-  get "store/index"
-
+  
   resources :products do
     get :who_bought, on: :member
   end
