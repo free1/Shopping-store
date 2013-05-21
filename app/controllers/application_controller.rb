@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_filter :authorize
   protect_from_forgery
   include SessionsHelper
 
@@ -11,5 +12,11 @@ class ApplicationController < ActionController::Base
   		session[:cart_id] = cart.id
   		cart
   	end
+
+  protected
+
+    def authorize
+      redirect_to signin_path, notice: "Please log in" unless signed_in?
+    end
 
 end

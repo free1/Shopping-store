@@ -1,5 +1,7 @@
 class LineItemsController < ApplicationController
 
+	skip_before_filter :authorize, only: [:create]
+
 	def new
 		@line_item = LineItem.new
 	end
